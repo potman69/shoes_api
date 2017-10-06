@@ -6,6 +6,7 @@ const session = require('express-session');
 const Models = require('./models/models');
 const mongoose = require('mongoose');
 const app = express();
+const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
 
 var router = express.Router();
 
