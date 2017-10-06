@@ -1,0 +1,41 @@
+const express = require('express');
+const Shoes = require('./models/models');
+const bodyParser = require('body-parser');
+const flash = require('express-flash');
+const session = require('express-session');
+const Models = require('./models/models');
+const mongoose = require('mongoose');
+const app = express();
+
+var router = express.Router();
+
+mongoose.connect('mongodb://localhost/shoes');
+mongoose.Promise = global.Promise;
+
+app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 30 }}));
+app.use(flash());
+
+app.get('/api', function(req, res){
+  res.send({name: "Anton Potgieter"})
+})
+
+
+// initialize routes
+app.use('/api',require('./routes/api'));
+
+// error handeling
+app.use(function(err, req, res, next){
+  // console.log(err);
+  res.send({error: err.message})
+})
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, function(){
+    console.log('Web app started on port : ' + port || process.env.PORT );
+});
