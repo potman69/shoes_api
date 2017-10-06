@@ -6,11 +6,11 @@ const session = require('express-session');
 const Models = require('./models/models');
 const mongoose = require('mongoose');
 const app = express();
-const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
+// const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
 
 var router = express.Router();
 
-mongoose.connect('mongodb://localhost/shoes');
+mongoose.connect(process.env.MONGO_DB_URL ||'mongodb://localhost/shoes');
 mongoose.Promise = global.Promise;
 
 app.use(express.static('public'));
