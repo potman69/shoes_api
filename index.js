@@ -50,5 +50,5 @@ app.use(function(err, req, res, next){
 const port = process.env.PORT || 3000;
 
 app.listen(port, function(){
-    console.log('Web app started on port : ' + port || process.env.PORT );
+    console.log('Web app started on port : ' + port );
 });
