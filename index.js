@@ -21,6 +21,11 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 30 }}));
 app.use(flash());
 
+
+app.get('/', function(req, res){
+  res.redirect('/api')
+})
+
 app.get('/api', function(req, res){
   res.send({name: "Anton Potgieter"})
 })
