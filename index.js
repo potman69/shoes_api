@@ -21,9 +21,16 @@ app.use(bodyParser.json());
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 30 }}));
 app.use(flash());
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept"');
+  next();
+})
+
 
 app.get('/', function(req, res){
-  res.redirect('/api')
+  res.redirect('/api/shoes')
 })
 
 app.get('/api', function(req, res){
