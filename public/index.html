@@ -10,42 +10,31 @@
 			  src="https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function(){
-        $("#btn").click(function(){
-          $("#shoes").load("http://localhost:3000/api/shoes");
-        })
-      })
-    </script>
   </head>
   <body>
     <h1 class="title">The Shoe Catalogue</h1>
-    <div id="shoes">
-      <p>Hello so many shoes</p>
-    </div>
-    <!-- <button id="btn" type="button" name="button">Display Shoes</button> -->
-    <button id="get-button">Display Shoes</button>
+
     <form id= " create-form" action="index.html" method="post">
       <input type="text" id= " create-input">
       <button>Create a Shoe</button>
-    </form>
-    <hr>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
+    </form><br>
+    <br>
+    <br>
+    <button id="display-button">Display Shoes</button>
+    <center >
+    <table id="shoeList" >
+        <tr >
+          <th>Id</th>
           <th>Brand</th>
           <th>Color</th>
           <th>Price</th>
           <th>Size</th>
           <th>In_Stock</th>
         </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
     </table>
+  </center>
+    <script src="main.js"></script>
     <script src="scripts/jquery-3.2.1.js"></script>
-    <script src="scripts/script.js"></script>
+
   </body>
 </html>

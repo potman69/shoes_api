@@ -7,6 +7,7 @@ const Shoes = require('../models/models');
 router.get('/shoes', function(req, res, next){
  Shoes.find({}).then(function(data){
     res.send(data);
+    
   })
 })
 // add new shoe to db
