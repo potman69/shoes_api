@@ -8,17 +8,27 @@ var $price = $('#price');
 var $size = $('#size');
 var $in_stock = $('#in_stock');
 
+var shoesTemplate = "" +
+"<li>" +
+"<p><strong>Brand:</strong> {{brand}}</p>" +
+"<p><strong>Color:</strong> {{color}}</p>" +
+"<p><strong>Price:</strong> R{{price}}</p>" +
+"<p><strong>Size:</strong> {{size}}</p>" +
+"<p><strong>In Stock:</strong> {{in_stock}}</p>" +
+"<button data-id='{{_id}}'class='remove'>X</button>" +
 
+
+"</li>";
 
 function addShoe(shoe){
-  var tr = $("<tr></tr>");
-  tr.append("<td>"+ shoe._id +"</td>");
-   tr.append("<td>"+ shoe.brand +"</td>");
-   tr.append("<td>"+ shoe.color +"</td>");
-   tr.append("<td>"+ shoe.price +"</td>");
-   tr.append("<td>"+ shoe.size +"</td>");
-   tr.append("<td>"+ shoe.in_stock +"</td>");
-  $("#shoeList").append(tr);
+  $shoes.append(Mustache.render(shoesTemplate, shoe))
+  // var tr = $("<tr></tr>");
+  //  tr.append("<td>"+ shoe.brand +"</td>");
+  //  tr.append("<td>"+ shoe.color +"</td>");
+  //  tr.append("<td>"+"R "+ shoe.price +"</td>");
+  //  tr.append("<td>"+ shoe.size +"</td>");
+  //  tr.append("<td>"+ shoe.in_stock +"</td>");
+  // $("#shoeList").append(tr);
 }
 
 $.ajax({
@@ -26,11 +36,9 @@ $.ajax({
   url: '/api/shoes',
   success: function(shoes){
     displayData = shoes;
-    $("#display-button").on("click", function(e){
-      e.preventDefault();
     $.each(displayData, function(i, shoe){
-    addShoe(shoe);
-    });
+      addShoe(shoe);
+
   });
 },
   error: function(){
@@ -45,6 +53,7 @@ $('#add-shoe').on('click', function(){
     size: $size.val(),
     in_stock: $in_stock.val(),
   };
+  
 
   $.ajax({
     type: 'POST',
@@ -52,17 +61,16 @@ $('#add-shoe').on('click', function(){
     data: shoe,
     success: function(newShoe){
       addShoe(newShoe);
-      //  window.location='index.html'
     }
   })
 });
-$('#del-button').on('click', function(){
+$shoes.delegate('.remove','click', function(){
+  var $li = $(this).closest('li');
   $.ajax({
     type: 'DELETE',
-    url: '/api/shoes',
-    data: shoe,
+    url: '/api/shoes/' +$(this).attr('data-id'),
     success: function(){
-      alert('Deleted');
+      $li.remove();
 
     }
   })

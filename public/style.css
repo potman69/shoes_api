@@ -58,10 +58,13 @@ input[type="submit"]{
      border-radius: 4px;
  }
 ul{
+  
     margin: 0;
     padding: 0;
 }
 li{
+
+    color: black;
     padding: 15px 0;
     background: #eee;
     list-style-type: none;
