@@ -13,11 +13,14 @@
   </head>
   <body>
     <h1 class="title">The Shoe Catalogue</h1>
-
-    <form id= " create-form" action="index.html" method="post">
-      <input type="text" id= " create-input">
-      <button>Create a Shoe</button>
+    <form id= "create-form" action="index.html" method="post">
+      <p>Brand<input type="text" id= "brand"></p>
+      <p>color<input type="text" id= "color"></p>
+      <p>Price<input type="text" id= "price"></p>
+      <p>Size<input type="text" id= "size"></p>
+      <p>In Stock<input type="text" id= "in_stock"></p>
     </form><br>
+    <button id="add-shoe">Add a Shoe</button>
     <br>
     <br>
     <button id="display-button">Display Shoes</button>
@@ -33,8 +36,14 @@
         </tr>
     </table>
   </center>
+
+    <p>Delete a Shoe by ID<input type="text" id= "-id"></p>
+    <button id="del-button">Delete</button>
+
+
     <script src="main.js"></script>
     <script src="scripts/jquery-3.2.1.js"></script>
+    <script src="/mustache/mustache.js"></script>
 
   </body>
 </html>
