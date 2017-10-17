@@ -1,5 +1,4 @@
 $(function(){
-
 var $shoes = $('#shoeList');
 var displayData;
 var $brand = $('#brand');
@@ -8,43 +7,26 @@ var $price = $('#price');
 var $size = $('#size');
 var $in_stock = $('#in_stock');
 
-var shoesTemplate = "" +
-"<li>" +
-"<p><strong>Brand:</strong> {{brand}}</p>" +
-"<p><strong>Color:</strong> {{color}}</p>" +
-"<p><strong>Price:</strong> R{{price}}</p>" +
-"<p><strong>Size:</strong> {{size}}</p>" +
-"<p><strong>In Stock:</strong> {{in_stock}}</p>" +
-"<button data-id='{{_id}}'class='remove'>X</button>" +
-
-
-"</li>";
+var shoesTemplate = $('#shoetemplate').html();
 
 function addShoe(shoe){
   $shoes.append(Mustache.render(shoesTemplate, shoe))
-  // var tr = $("<tr></tr>");
-  //  tr.append("<td>"+ shoe.brand +"</td>");
-  //  tr.append("<td>"+ shoe.color +"</td>");
-  //  tr.append("<td>"+"R "+ shoe.price +"</td>");
-  //  tr.append("<td>"+ shoe.size +"</td>");
-  //  tr.append("<td>"+ shoe.in_stock +"</td>");
-  // $("#shoeList").append(tr);
 }
 
-$.ajax({
-  type: 'GET',
-  url: '/api/shoes',
-  success: function(shoes){
-    displayData = shoes;
-    $.each(displayData, function(i, shoe){
-      addShoe(shoe);
-
+  $.ajax({
+    type: 'GET',
+    url: '/api/shoes',
+    success: function(shoes){
+      displayData = shoes;
+      $.each(displayData, function(i, shoe){
+        addShoe(shoe);
+      });
+    },
+    error: function(){
+      alert('Error loading shoes')
+    }
   });
-},
-  error: function(){
-    alert('Error loading shoes')
-  }
-});
+
 $('#add-shoe').on('click', function(){
   var shoe = {
     brand: $brand.val(),
@@ -53,7 +35,6 @@ $('#add-shoe').on('click', function(){
     size: $size.val(),
     in_stock: $in_stock.val(),
   };
-  
 
   $.ajax({
     type: 'POST',
@@ -61,6 +42,7 @@ $('#add-shoe').on('click', function(){
     data: shoe,
     success: function(newShoe){
       addShoe(newShoe);
+      $('input[type="text"],textarea').val('');
     }
   })
 });
@@ -71,10 +53,50 @@ $shoes.delegate('.remove','click', function(){
     url: '/api/shoes/' +$(this).attr('data-id'),
     success: function(){
       $li.remove();
-
     }
   })
-
 })
+
+$shoes.delegate('.buy','click', function(e){
+  var id = e.target.id;
+  var $li = $(this).closest('li');
+  $.ajax({
+    type: 'PUT',
+    url: '/api/shoes/' +id,
+    success: function(){
+      location.reload();
+    }
+  })
+})
+$("#inputBrand").on('click', function(){
+  var brandName = $('#brands').val();
+  $.ajax({
+    type: 'GET',
+    url: '/api/shoes/brand/' + brandName,
+    success: function(data){
+      displayData = data;
+      $.each(displayData, function(i, result){
+        addShoe(result);
+        $('input[type="text"],textarea').val('');
+
+    });
+  },
+  });
+})
+$("#inputSize").on('click', function(){
+  var Size = $('#sizes').val();
+  $.ajax({
+    type: 'GET',
+    url: '/api/shoes/size/' + Size,
+    success: function(data){
+      displayData = data;
+      $.each(displayData, function(i, result){
+        addShoe(result);
+        $('input[type="text"],textarea').val('');
+    });
+  }
+  });
+})
+
 
 });

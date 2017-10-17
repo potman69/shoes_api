@@ -13,20 +13,35 @@
   </head>
   <body>
     <h1 class="title">The Shoe Catalogue</h1>
-    <!-- <button id="display-button">Display Shoes</button> -->
     <ul id="shoeList"></ul>
 
-    <!-- <center >
-    <table id="shoeList" >
-        <tr >
-          <th>Brand</th>
-          <th>Color</th>
-          <th>Price</th>
-          <th>Size</th>
-          <th>In_Stock</th>
-        </tr>
-    </table>
-    </center> -->
+    <template id="shoetemplate">
+      <li data-id = {{_id}}>
+        <p><strong>Brand:</strong> {{brand}}</p>
+        <p><strong>Color:</strong> {{color}}</p>
+        <p><strong>Price:</strong> R{{price}}</p>
+        <p><strong>Size:</strong> {{size}}</p>
+        <p><strong>In Stock:</strong> {{in_stock}}</p>
+        <button data-id='{{_id}}'class='remove'>X</button>
+        <button id='{{_id}}'class='buy'>Buy</button>
+        </li>
+      </template>
+      <br>
+
+
+      <div >
+        <input type="text" id="brands" placeholder="Brand">
+        <button id="inputBrand">Search</button>
+      </div>
+      <br>
+      <div >
+        <input type="text" id="sizes" placeholder="Size">
+        <button id="inputSize">Search</button>
+      </div>
+      <br>
+      <br>
+
+
 
     <form id= "create-form" action="index.html" method="post">
       <p>Brand<input type="text" id= "brand"></p>
@@ -37,7 +52,7 @@
     </form><br>
     <button id="add-shoe">Add a Shoe</button>
     <br>
-    <br>   
+    <br>
 
 
     <script src="main.js"></script>

@@ -29,9 +29,7 @@ app.use(function(req, res, next) {
 })
 
 app.get('/', function(req, res){res.redirect('/api')})
-// app.get('/', function(req, res){
-//   res.redirect('/api/shoes')
-// })
+
 
 app.get('/api', function(req, res){
   res.send({name: "Anton Potgieter"})
